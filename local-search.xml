@@ -8,8 +8,39 @@
     <link href="/2023/02/28/2023-02/"/>
     <url>/2023/02/28/2023-02/</url>
     
-    <content type="html"><![CDATA[<h1 id="【月报】2023-02-秦淮河畔"><a href="#【月报】2023-02-秦淮河畔" class="headerlink" title="【月报】2023-02 秦淮河畔"></a>【月报】2023-02 秦淮河畔</h1><p><img src="/img/WechatIMG46.jpeg" alt="秦淮河畔"></p><blockquote><p>从老门东走到夫子庙，会路过秦淮河畔，晚上的灯光很美，游船也很有意境。</p></blockquote><p>在南京度过的第一个二月，也是玩的最开心的二月，二月有太多的事情值得回忆了。</p><p>因为我在南京的缘故，一些朋友开始来南京游玩，一般会来我这边住宿。一来我租的房子有两个小房间，有一个客卧可以空出来，住宿不成问题，亦可省下一笔不小的酒店开销；二来自从离开学校之后，大家基本都是聚少离多，很多时候，只是依托于互联网来维系联系，可以线下见一面，聚一次，自然是不易错过的机会。</p><p>二月份共是招待了三波朋友。一是星哥和佳乐，二是小胖和谭总，三是霞姐和大衣。有高中的同学，亦有大学的室友，很多都已经算是多年的老友。老友见面自是不免追忆往昔，聊起以前的一些共同记忆，感慨时光飞逝，物是人非。人总是会变的，年龄上每日按部就班的增加，性格和见解上也会随工作，读研，感情，生活的经历而改变，或好或坏。好在有些东西是不会改变的，就像记忆，南京的相逢让我们的记忆得以重现、延续和补充。</p><p>因为陪同游玩的缘故，去了一些暂时还未涉足的南京景区。老门东、夫子庙、玄武湖、鸡鸣寺、秦淮河畔……南京展示了它作为金陵城的一面，给所有到访金陵的客人，让他们不得不感叹金陵的美好，折服于这个六朝古都的景色和文化底蕴之下。南京城如果是一位君子，我想那也必是温润如玉的一位。</p><p>我会怀念二月的相逢，会怀念2023年二月的南京城。</p><p>除去故人和金陵。二月里，工作依旧是生活的主旋律。</p><p>因为一月做 <a href="https://opentelemetry.io/">openTelemetry</a> 的 research 的缘故，我开始更多的接触和学习关于云原生下服务的可观测性。二月里，我开始尝试在 int 环境上搭建生产环境下 jaeger。在早先的 research 中，更多是学习里面的概念，借助 all in one 的 module 搭一个简单的可供测试的环境。当开始正式考虑后续的正式环境的实践的时候，需要更多的思考架构的设计，服务的安全性，服务的可用性，服务的稳定性，甚至服务的成本和收益。目前来说，自己搭建的 jaeger 很多需要改进和优化的点。线上服务的接入也还需要我去实践具体的 code，道阻且长，希望三月份可以把这个 feature 成功完成。</p><p>同时，因为更多的接触云原生的内容。我也越发觉得自己计算机基础、网络知识的匮乏。它们的重要性自是不必多说，虽然之前也会定时去翻阅一二，但始终不是很深入。所以二月份也给自己定下了一个恶补计算机基础和网络的计划。目前在执行中，我个人的期望是在上半年结束之后可以有较大的提高。</p><p>目前在看的几本书：</p><ul><li>《网络是咋样连接的》</li><li>《TCP-IP协议及其应用》</li><li>《深入浅出HTTPS》</li><li>《Linux 环境编程：从应用到内核》</li><li>《程序是怎么跑起来的》</li><li>《CSAPP》</li><li>《Linux内核设计的艺术》</li></ul><p>另一方面，因为被《万历十五年》勾起的对于历史的盎然兴趣在二月仍旧存有余温。二月份开始看《中国历史十五讲》，这本书主要是从十五个不同的维度来对中国的历史进行不同的阐述。目前已看了六章有余，三月份应该可以看完。想着即使不能读史以明智，了解些前朝逸闻趣事也是一种乐趣，挺好～</p><p>二月份的背单词计划进行的并不是顺利，我的单词计划安排在晚上下班后，但一般我下班，回家，吃饭，洗漱，一套生活琐事下来，时间也将近八点了。很多时候，我会选择躺在床上，看会书，然后背单词。但是总是感觉收效甚微，可能是待在放有厚被子的温床上，人会丧失斗志吧。三月份会每天背完单词后再躺平～</p><p>二月播客时间，推荐播客: <a href="https://podcasts.apple.com/cn/podcast/s3e5-vue-js%E4%BD%9C%E8%80%85%E5%B0%A4%E9%9B%A8%E6%BA%AA-%E6%A1%86%E6%9E%B6%E8%AE%BE%E8%AE%A1%E5%B0%B1%E6%98%AF%E4%B8%8D%E6%96%AD%E5%9C%B0%E8%88%8D%E5%8F%96/id1241589761?i=1000561879795">S3E5|Vue.js 作者尤雨溪: 框架设计就是不断地取舍</a></p><p>就写这么多了，三月见！</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="【月报】2023-02-秦淮河畔"><a href="#【月报】2023-02-秦淮河畔" class="headerlink" title="【月报】2023-02 秦淮河畔"></a>【月报】2023-02 秦淮河畔</h1><p><img src="/../img/WechatIMG46.jpeg" alt="秦淮河畔"></p><blockquote><p>从老门东走到夫子庙，会路过秦淮河畔，晚上的灯光很美，游船也很有意境。</p></blockquote><p>在南京度过的第一个二月，也是玩的最开心的二月，二月有太多的事情值得回忆了。</p><p>因为我在南京的缘故，一些朋友开始来南京游玩，一般会来我这边住宿。一来我租的房子有两个小房间，有一个客卧可以空出来，住宿不成问题，亦可省下一笔不小的酒店开销；二来自从离开学校之后，大家基本都是聚少离多，很多时候，只是依托于互联网来维系联系，可以线下见一面，聚一次，自然是不易错过的机会。</p><p>二月份共是招待了三波朋友。一是星哥和佳乐，二是小胖和谭总，三是霞姐和大衣。有高中的同学，亦有大学的室友，很多都已经算是多年的老友。老友见面自是不免追忆往昔，聊起以前的一些共同记忆，感慨时光飞逝，物是人非。人总是会变的，年龄上每日按部就班的增加，性格和见解上也会随工作，读研，感情，生活的经历而改变，或好或坏。好在有些东西是不会改变的，就像记忆，南京的相逢让我们的记忆得以重现、延续和补充。</p><p>因为陪同游玩的缘故，去了一些暂时还未涉足的南京景区。老门东、夫子庙、玄武湖、鸡鸣寺、秦淮河畔……南京展示了它作为金陵城的一面，给所有到访金陵的客人，让他们不得不感叹金陵的美好，折服于这个六朝古都的景色和文化底蕴之下。南京城如果是一位君子，我想那也必是温润如玉的一位。</p><p>我会怀念二月的相逢，会怀念2023年二月的南京城。</p><p>除去故人和金陵。二月里，工作依旧是生活的主旋律。</p><p>因为一月做 <a href="https://opentelemetry.io/">openTelemetry</a> 的 research 的缘故，我开始更多的接触和学习关于云原生下服务的可观测性。二月里，我开始尝试在 int 环境上搭建生产环境下 jaeger。在早先的 research 中，更多是学习里面的概念，借助 all in one 的 module 搭一个简单的可供测试的环境。当开始正式考虑后续的正式环境的实践的时候，需要更多的思考架构的设计，服务的安全性，服务的可用性，服务的稳定性，甚至服务的成本和收益。目前来说，自己搭建的 jaeger 很多需要改进和优化的点。线上服务的接入也还需要我去实践具体的 code，道阻且长，希望三月份可以把这个 feature 成功完成。</p><p>同时，因为更多的接触云原生的内容。我也越发觉得自己计算机基础、网络知识的匮乏。它们的重要性自是不必多说，虽然之前也会定时去翻阅一二，但始终不是很深入。所以二月份也给自己定下了一个恶补计算机基础和网络的计划。目前在执行中，我个人的期望是在上半年结束之后可以有较大的提高。</p><p>目前在看的几本书：</p><ul><li>《网络是咋样连接的》</li><li>《TCP-IP协议及其应用》</li><li>《深入浅出HTTPS》</li><li>《Linux 环境编程：从应用到内核》</li><li>《程序是怎么跑起来的》</li><li>《CSAPP》</li><li>《Linux内核设计的艺术》</li></ul><p>另一方面，因为被《万历十五年》勾起的对于历史的盎然兴趣在二月仍旧存有余温。二月份开始看《中国历史十五讲》，这本书主要是从十五个不同的维度来对中国的历史进行不同的阐述。目前已看了六章有余，三月份应该可以看完。想着即使不能读史以明智，了解些前朝逸闻趣事也是一种乐趣，挺好～</p><p>二月份的背单词计划进行的并不是顺利，我的单词计划安排在晚上下班后，但一般我下班，回家，吃饭，洗漱，一套生活琐事下来，时间也将近八点了。很多时候，我会选择躺在床上，看会书，然后背单词。但是总是感觉收效甚微，可能是待在放有厚被子的温床上，人会丧失斗志吧。三月份会每天背完单词后再躺平～</p><p>二月播客时间，推荐播客: <a href="https://podcasts.apple.com/cn/podcast/s3e5-vue-js%E4%BD%9C%E8%80%85%E5%B0%A4%E9%9B%A8%E6%BA%AA-%E6%A1%86%E6%9E%B6%E8%AE%BE%E8%AE%A1%E5%B0%B1%E6%98%AF%E4%B8%8D%E6%96%AD%E5%9C%B0%E8%88%8D%E5%8F%96/id1241589761?i=1000561879795">S3E5|Vue.js 作者尤雨溪: 框架设计就是不断地取舍</a></p><p>就写这么多了，三月见！</p>]]></content>
     
+    
+    <categories>
+      
+      <category>月报</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>月报</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【月报】2023-02-大教堂与集市</title>
+    <link href="/2023/02/28/2023-03/"/>
+    <url>/2023/02/28/2023-03/</url>
+    
+    <content type="html"><![CDATA[<h1 id="【月报】2023-03-大教堂与集市"><a href="#【月报】2023-03-大教堂与集市" class="headerlink" title="【月报】2023-03 大教堂与集市"></a>【月报】2023-03 大教堂与集市</h1><p>![cathedral and market](../img/cathedral and market.png)</p><blockquote><p>这个月拜读了大教堂与集市。开源运动是黑客文化的终极浪漫～</p></blockquote><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>故人西辞黄鹤楼，烟花下月下扬州。李白的千古绝唱平添了扬州这座古城的无限风韵。在我的新年旅行计划中，扬州是里面必不可少的一站，然而我却食言了。事情的缘由是我身份证又又又遗失了，缺少了身份证，出行和住旅都不是很方便，三月出南京旅游的计划也不得不暂时搁置。明天就是四月了，那就四月份再去扬州吧～</p><h2 id="工作与学习"><a href="#工作与学习" class="headerlink" title="工作与学习"></a>工作与学习</h2><ul><li><p>之前跟一直在做的关于 openTelemetry 的 research 的有了第一阶段的进展。搭建好了生产标准的环境，同时利用团队里面的一个 python 作为示例，在团队内存做了关于云原生下可观测性的分享。因为被安排了其他方面的公共，这个事项暂时被 pendding, 后续在跟进。</p></li><li><p>其二，因为项目需求的缘故，对市场面的 golang 的规则引擎和 sql builder 进行了一次 research, 研究了不少了开源库，比如 gendry, govaluate 等等，甚有收获。</p></li><li><p>持续对计算机基础和相关技术栈进行学习和巩固</p><ul><li>《网络是咋样连接的》 done</li><li>《linux 内核设计的艺术》 process</li><li>《kubernetes 权威指南》process</li></ul></li><li><p>科技读物</p><ul><li>《大教堂与集市》done</li><li>《与开源同行，揭秘PingCAP七年创业实践》done</li></ul></li><li><p>英语</p><ul><li>背单词三天打鱼两天晒网……</li><li>开口说英语（因为有菲律宾的同事来南京出差，待在我们组里。所以每天的 sync 被要求用英文，这下是没得选了，不得不说英文）</li><li>个人感觉自己的英语水平是有一点点提升的，再接再厉！</li></ul></li></ul><h2 id="生活"><a href="#生活" class="headerlink" title="生活"></a>生活</h2><ul><li>阅读<ul><li>《当我谈论跑步时，我在谈论什么》done</li><li>《中国历史十五讲》看到第八章</li></ul></li><li>篮球<ul><li>这个月只打了一次篮球，惭愧。</li></ul></li><li>锻炼<ul><li>开始尝试晚上下班后进行室内锻炼，虽然频次不多，一周两三次，似乎精神状态有提升，继续保持～</li></ul></li><li>电影<ul><li>《铃芽之旅》还可以，画面和音乐都挺不错的。个人感觉剧情方面有一些单薄。</li></ul></li><li>动漫<ul><li>花了一个周末的时间，补番《画江湖之不良人》，一步步看着画江湖的剧情越来越好。想着第一次看不良人的时候我还在上高中，真是时光荏苒。</li></ul></li></ul><h2 id="推荐播客"><a href="#推荐播客" class="headerlink" title="推荐播客"></a>推荐播客</h2><p><a href="https://podcasts.apple.com/cn/podcast/%E5%BC%80%E6%BA%90%E9%9D%A2%E5%AF%B9%E9%9D%A2/id1587487089?i=1000554056927">S01E07 面对开放的大门，技术小白可以怎样开始参与开源</a></p><p>下月见～</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>月报</category>
+      
+    </categories>
     
     
     <tags>
@@ -30,6 +61,12 @@
     <content type="html"><![CDATA[<h1 id="【月报】2023-01-新年伊始"><a href="#【月报】2023-01-新年伊始" class="headerlink" title="【月报】2023-01 新年伊始"></a>【月报】2023-01 新年伊始</h1><blockquote><p>去年的时候，我开始经常看一些开源博客和推特。受 @<a href="https://ichn.xyz/blog">ichn-hu</a> 的影响，有不少人开始在互联网上公开自己的周报。我一直有想尝试的想法，一方面记录下生活，一方面也是对自己的督促。但我深知自己生活的寡淡和技术的浅薄，以周为期限对于我来说，似乎还是有些过于短暂了。所以我想着把周报进行时间维度的拉伸，于是有了这篇月报。</p><p>尝试公开写月报，尝试新的生活方式。</p></blockquote><p>工作上，新年的第一个月我开始为团队做 <a href="https://opentelemetry.io/">openTelemetry</a> 的 research。基于团队已有的项目，做了一次简单的 POC。基于opentelemetry官方提供的 go SDK，和我们已有的服务进行集成，采用OTLP Exporter，并最终使用 Jaeger 作为前端可视化的方案进行 trace 调用链路的展示。这也是目前业界内比较通用的方案。整个流程走下来，算是初窥门径。其他方面的工作内容，这里也不便多说，就此作罢。</p><p>生活上，一年一度的农历新年，让我拥有了长达八天的假期，一段清闲的时光。但是我今年却更深地体会到了年味的消失。除夕夜当天到家，没赶上祠堂祭拜。大年初一，零下三度的温度让我不舍起床，也就没去村里的庙里拜菩萨。原本大年初二是大家去外婆家拜年的日子，因为外婆的离世，大家也不约而同的丧失了这个默契。年味在消失吗？我看着路边那群手拿炮仗的小孩们，在窗外的延绵不绝的烟火和鞭炮声中，度过了农历新年。</p><p>也是因为过于清闲，我在过年的时候，开始翻弄起微信读书的书架。因为想多了解些历史，于是翻阅了《万历十五年》。《万历十五年》不算是传统的编年体历史书，黄仁宇先生对于历史考究却不同于一般正史里对历史人物事迹的编撰记录，他更侧重于对人物内心、时代政治环境、人民、经济、社会、封建治国之道、儒家文化的辩证和思考。每个章节似乎自成一体，像是一本人物纪传体小说。也是这本书，又让我激起了对于历史的兴趣，书架中众多的技术书中有了一些历史文学的点缀。</p><p>另外，因为一月份还听了很多的播客，这里推荐一集：<a href="https://podcasts.apple.com/cn/podcast/s3e1-pingcap-cto-%E9%BB%84%E4%B8%9C%E6%97%AD-%E6%8E%A2%E7%B4%A2%E5%BC%80%E6%BA%90%E5%88%9B%E4%B8%9A%E7%9A%84%E5%BA%95%E5%B1%82%E9%80%BB%E8%BE%91-%E4%BB%8Ebasic%E5%88%B0%E6%95%B0%E6%8D%AE%E5%BA%93tidb/id1241589761?i=1000561879687"><strong>S3E1 | PingCAP CTO 黄东旭 - 探索开源创业的底层逻辑, 从Basic到数据库TiDB</strong></a>。以后这个推荐播客就作为保留节目吧～</p><p>就写这么多了，二月见！</p>]]></content>
     
     
+    <categories>
+      
+      <category>月报</category>
+      
+    </categories>
+    
     
     <tags>
       
@@ -49,6 +86,12 @@
     <content type="html"><![CDATA[<h1 id="2022年终总结–平和的面对一切"><a href="#2022年终总结–平和的面对一切" class="headerlink" title="2022年终总结–平和的面对一切"></a>2022年终总结–平和的面对一切</h1><p>该怎么形容我的2022年呢？我想了很久，我没有确切的答案。</p><p>如果一定要用一个词来总结我2022年，我会选择平和，平和的面对的一切，不论是工作还是生活。</p><p>2022算是我正式进入职场的第一个完整年份。如果说2021年我尚且留着一半学生的稚气，那2022年，我已经是身锤百炼的打工人了。工作方面，尽管没有太多技术上的长进，但是对于工作的流程和进度的把控有了更进一步的认知和实践，我学会更好的安排时间来面对繁重的各项工作，也更加明白了职场中的处事原则。以前我觉得只要技术牛逼，到哪里都能发光发热(也确实有这样的人)，但现在我觉得能安安分分把工作完成交付的人才能发光发热，甚至安安分分把领导交付的任务优先完成才能发光发热。我开始觉得工作的本质就是产生商业价值，功能做的再花哨，技术实现多么高性能高可用，最终还是需要用户买单，用户不买单，所做的一切都是无用功的，这就是商业的价值。虽然道理谁都懂，但是当整个部门都在为上云，saas，商业化，盈利来自保的时候，那种感觉是如此的强烈。</p><p>另外一件值得一提的事就是离开腾讯了。</p><p>我是2021年7月份以校招生的身份加入腾讯的。在腾讯一年多的时间里，我学习到的知识，开阔的视野是我以前所不能及的。需求评审，技术方案，开发，UT, CR, CICD,  SLA保障，维护，我对整个开发的流程有了更为清楚的认知，平日里的技术分享和KM里面高质量的文章也是我日常吸取知识的源泉。在离开前的那一个月，每天看一些km里面自己收藏的文章，看看乐问，是一天里较为轻松愉悦的时刻。另外，在腾讯里也认识了很多优秀的人，校招生的封培，codeworld, 以及效能部门和大数据部门里的同事，我从他们身上学到了很多，也交了一些朋友。即使其中有些人和我一样，也都离开了腾讯，大家也偶尔都会在小群里联系。</p><p>我很感谢在腾讯里的经历，也希望腾讯能越来越好。</p><p>我在9月份来到了新的公司，这是完全不同于腾讯的公司文化。我不必每天九点多十点多下班，也不必在周末里加班加点来赶进度，不必每天打开电脑，面对那堆积如山的工单问题，也没有项目经理每天在我工位面前拉通对齐了。我有了更为宽松的工作环境，不再有那么大的工作压力。并且在新公司中，我扮演的角色也从执行者，慢慢开始自己own一些工作项，做一些新技术的research和实践。work life balance, 我想我满意了现在工作。</p><p>生活上，我开始尝试一些新的东西。</p><p>骑行，switch， 摄影，口琴，动漫，甚至在来到南京后，开始更多的出去走动，中山陵，美龄宫，鱼嘴公园，先锋书店，莫愁湖……新的生活是新鲜的，有种探索未知的愉悦。这里面我最喜欢的是骑行，当我骑行在南京的梧桐树下，当骑行的风声在我耳边轻微响起的时候，我感到无比的愉悦，新年的第一骑会选择去骑老山或者黄龙枧吧，神往已久。</p><p>会有遗憾吗？</p><p>今年最大的遗憾是外婆永远的离开了。虽然在外婆病重的时候，我提前请假回家看望了外婆，但那个时候，外婆已是完全不能自理，在神志上也只是稍有片刻才能认出我是谁，每天进食困难，在我用调羹的喂食下勉强能喝下几口粥。虽然不愿意承认，但那时候已是感觉外婆时日无多。在我返回南京一周后，外婆永久的离开了人世。我从一岁开始，就是外婆在抚养我长大，而我却不能在她年事已高病魔缠身的时候在其身边照顾。有无奈，更是愧疚。希望外婆在世界的另外一边，不必再与病魔斗争，万事顺意。我会想念你。</p><p>2023年呢？有什么规划吗？想去做什么？我不知道。</p><p>但是我想，我会更为正确的浪费剩下的时间。</p><p>就写这么多了，明年见！</p>]]></content>
     
     
+    <categories>
+      
+      <category>年终总结</category>
+      
+    </categories>
+    
     
     <tags>
       
@@ -67,6 +110,12 @@
     
     <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
     
+    
+    <categories>
+      
+      <category>Hello World</category>
+      
+    </categories>
     
     
   </entry>
