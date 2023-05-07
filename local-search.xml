@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>【月报】2023-04-湘北军团</title>
+    <link href="/2023/05/07/2023-04/"/>
+    <url>/2023/05/07/2023-04/</url>
+    
+    <content type="html"><![CDATA[<h1 id="【月报】2023-04-湘北军团"><a href="#【月报】2023-04-湘北军团" class="headerlink" title="【月报】2023-04 湘北军团"></a>【月报】2023-04 湘北军团</h1><p><img src="/img/xiangbeijuntuan.jpg" alt="湘北军团"></p><blockquote><p>久违了，湘北军团。迟到了二十多年的全国大赛终究没有缺席。</p></blockquote><h2 id="工作与学习"><a href="#工作与学习" class="headerlink" title="工作与学习"></a>工作与学习</h2><h3 id="工作"><a href="#工作" class="headerlink" title="工作"></a>工作</h3><p>因为工作的需求，这个月花了较多的时间投入到 GRPC 框架的学习和使用上。包括 GRPC 项目结构的搭建，跨 GRPC 服务中 context 的传递，GRPC interceptor 的使用，接口测试， 以及关于 protobuf 文件的管理。因为之前有 RPC 框架使用经验，所以上手还算是比较快的。</p><p>但是关于 GRPC IDL 文件的管理还是花了不少心思去研究了一下。之前在腾讯的时候，有一个独立的平台来对 protobuf 文件进行管理，可以直接在平台上进行 protobuf 文件的定义和修改，并且平台会帮你生成桩代码，且提供版本管理的功能。因为目前所在公司并没有提供这个的平台，所以 protobuf 文件的管理需要另寻它法。经过调研，大体上有三种方法。</p><p>第一种：存放在代码仓库，直接将项目所依赖到的所有 Proto 文件都存放在 <code>proto/</code> 目录下，不经过开发工具的自动拉取和发布。但是这种一份 proto 文件需要多处维护，容易造成不一致。并且每次都需要程序员手动去介入 复制粘贴。基本都是不采纳的。只建议自己学习练习的时候可以这样使用。</p><p>第二种：独立仓库，即用一个独立的仓库来管理所有的 protobuf 文件。提前提供好生成桩代码的脚本文件，将生成的桩代码作为 sdk 引入使用。</p><p>第三种：镜像仓库，也是用一个独立的仓库来管理所有的 protobuf 文件。通过 ci 生成桩代码，并将桩代码同步到镜像仓库中(可以是一个 api 大仓，或者是多个子项目的小仓)。主要目的是将 protobuf 文件和桩代码文件分开管理。</p><p>同时对于第二种和第三种方法，在使用上，也有不同选择。用户可以选择用 submodule 的方法，也可以使用  se mantic version。</p><p>基于一些对比思考，我最终采用了镜像仓库 + api 大仓(通过结构来划分领域) + semantic version.</p><p>理由如下：镜像仓库将 protobuf 文件和桩代码分开管理，满足接口定义与实现划分的抽象理念，后续如果有其他语言的服务，方便扩展(修改 ci 即可)。根据 <a href="https://github.com/googleapis/googleapis">googleapis</a> 的设计，以及我们服务的规模(体量小，微服务划分不算太多)，我们倾向于对于 protobuf 的统一管理，即 api 大仓。同时采用 semantic version 来进行版本管理, 没有选择 submodule 的方式主要是因为 semantic version 这种方式更容易理解和使用，submodule 更多是用在 go 语言项目中，并且基于分支的使用方式不利于后续的管理，且在出现错误的时候，需要回滚代码。</p><p>Reference：</p><ul><li><p><a href="https://grpc.io/">GRPC 官方文档</a></p></li><li><p><a href="https://github.com/golang-standards/project-layout">Standard Go Project Layout</a></p></li><li><p><a href="https://laiye.com/news/post/2585.html">来也科技 Protobuf 最佳工程实践</a></p></li><li><p><a href="https://yuyy.info/?p=1980">Gitlab CI/CD 实践六：统一管理 protocol buffer，API 大仓设计与实现</a></p></li><li><p><a href="https://github.com/googleapis/googleapis">googleapis</a></p></li></ul><h3 id="学习"><a href="#学习" class="headerlink" title="学习"></a>学习</h3><h4 id="英语"><a href="#英语" class="headerlink" title="英语"></a>英语</h4><p>最近开始了早晨背英语。因为我个人习惯早上醒来后会赖床再躺一会，想着躺着刷手机不如拿来背单词。这样把之前规划的晚上背单词的计划提前到早上，似乎更好一些，一来早上精力更足，很多时候，一天的工作足以消耗你绝大部分的精力，晚上背单词的时候特别容易无精打采，效果不佳。二来减少了一些早上无意义的刷手机的行为，同时让自己更快的进入到良好的状态(刷手机真的很消耗工作的精力)。贵在坚持，希望自己的英语能力能够猪突猛进！</p><h4 id="技术"><a href="#技术" class="headerlink" title="技术"></a>技术</h4><ul><li>《kuberetes 权威指南》时常翻翻</li><li>发现并看了较多的开源博客。主要是关于大数据方面的博客。(发现自己对于数据平台仍旧抱有热情)</li><li>开始学习<a href="https://www.bilibili.com/video/BV1Cm4y1d7Ur/?spm_id_from=333.999.0.0&vd_source=af5b17760a20bb0e435ef05c825f2f19">B站南京大学 jyy 的操作系统课程</a> ，操作系统知识永远是程序员的立身之本。</li></ul><h2 id="生活"><a href="#生活" class="headerlink" title="生活"></a>生活</h2><h3 id="无法离地的飞行"><a href="#无法离地的飞行" class="headerlink" title="无法离地的飞行"></a>无法离地的飞行</h3><p>这个月开始比较频繁的开始骑单车上下班了，感觉大概有三分之二左右的时间是骑单车上下班的吧。骑车的感觉很不错，特别是在晚风吹拂的时候。我很喜欢电影《四海》的主题曲《无法离地的飞行》，骑单车会给我那种感觉。</p><h3 id="蒙古草原，天气晴"><a href="#蒙古草原，天气晴" class="headerlink" title="蒙古草原，天气晴"></a>蒙古草原，天气晴</h3><p>B站播放链接：<a href="https://www.bilibili.com/video/BV12P4y1p7FG/?spm_id_from=333.999.0.0&vd_source=af5b17760a20bb0e435ef05c825f2f19">蒙古草原，天气晴（2006）</a></p><blockquote><p>关野：</p><p>​        你好吗？我们一家都很好。你平安回家了吗？</p><p>​        我们这里已经入冬了，最近在渐渐地变冷，你的茶色斑点白马也非常精神地度过了寒冬。我们还是打算去找那些被偷走的马。</p><p>​        普洁今年进了学校，她经常提起你哦。</p><p>​        值此辞旧迎新之际，祝你的家人、朋友以及你本人身体健康。</p><p>​        再见，在再次见面之前。</p><p>​                                                                                                                                 普洁的母亲，艾鲁蒂内琪美古</p></blockquote><p>我为普洁和她的母亲感到深深的难过。希望他们在另一个世界可以幸福。</p><h2 id="推荐播客"><a href="#推荐播客" class="headerlink" title="推荐播客"></a>推荐播客</h2><p>【枫言枫语&amp;梁杰】<a href="https://www.xiaoyuzhoufm.com/episode/61c0dc5c874a732463bf77df">在加拿大工作和生活是什么体验</a></p><p>这个月听的较多的是 <a href="https://talk.swift.gg/">ggtalk 程序员的闲聊节目</a>, 在家里无事的时候，听着梁杰讲他在加拿大的生活也挺有意思的。</p><p>下月见～</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>月报</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>月报</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>【月报】2023-03-大教堂与集市</title>
     <link href="/2023/03/31/2023-03/"/>
     <url>/2023/03/31/2023-03/</url>
