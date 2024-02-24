@@ -1,0 +1,877 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" href="/img/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个分享个人技术文章、随笔的小站">
+  <meta name="author" content="moranthuang">
+  <meta name="keywords" content="个人博客">
+  <meta name="description" content="一个分享个人技术文章、随笔的小站">
+<meta property="og:type" content="website">
+<meta property="og:title" content="随机浮游">
+<meta property="og:url" content="https://www.moranthuang.com/page/2/index.html">
+<meta property="og:site_name" content="随机浮游">
+<meta property="og:description" content="一个分享个人技术文章、随笔的小站">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="moranthuang">
+<meta property="article:tag" content="个人博客">
+<meta name="twitter:card" content="summary_large_image">
+  
+  <title>随机浮游</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"www.moranthuang.com","root":"/","version":"1.8.12","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":"c09f3af8218aae9533eb15c9bf488736","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 60vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>随机浮游</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/index.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="欲远集而无所至兮，聊浮游以逍遥">
+              
+                欲远集而无所至兮，聊浮游以逍遥
+              
+            </span>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div class="py-5" id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/09/12/distributed-transactions/" target="_self">
+          【技术转载】分布式事务和系统底层原理揭秘
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/09/12/distributed-transactions/" target="_self">
+          
+          
+            
+          
+          
+这篇是转载潘少的文章。
+原文地址：link
+潘少的博客:  https://strikefreedom.top/
+
+前言分布式事务是分布式系统必不可少的组成部分，基本上只要实现一个分布式系统就逃不开对分布式事务的支持。本文从分布式事务这个概念切入，尝试对分布式事务以及分布式系统最核心的底层原理逐一进行剖析，内容包括但不限于 BASE 原则、两阶段原子提交协议、三阶段原子提交协议、Paxos/Mu
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-09-12 19:38" pubdate>
+              2023-09-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%8A%80%E6%9C%AF%E4%BF%AE%E5%85%BB/">技术修养</a>
+            
+              <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">分布式事务</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/09/01/2023-08/" target="_self">
+          【月报】2023-08-断桥残雪
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/09/01/2023-08/" target="_self">
+          
+          
+            
+          
+          
+
+断桥之生命不能承受之轻，晚上的西湖人真的很多。
+
+工作
+设计了一个比较重要的新需求的方案和技术实现
+团队维护的一个历史遗漏项目是 C++ 技术栈的，团队中没有人对 C++ 是比较熟悉的，并且与该项目相关的人都跑路了，可以说是烫手山芋一个。之前大师在的时候，大师还能顶一顶，现在没人顶了。在处理一个 case 中发现其中存在的代码错误，花了一些功夫熟悉了下整个项目的结构和 C++ 的基础知识，最后
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-09-01 11:01" pubdate>
+              2023-09-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%9C%88%E6%8A%A5/">月报</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/08/01/2023-07/" target="_self">
+          【月报】2023-07-吉他初体验
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/08/01/2023-07/" target="_self">
+          
+          
+            
+          
+          
+
+买了一把新吉他，手感不错～
+
+工作
+MDM 成功上线 ！！！！
+大师离职了。来到 TrendMicro 这边后挺受大师照顾的，希望大师一切顺利～
+
+学习书籍
+《AI 3.0》
+
+我不是担忧人工智能变得太聪明、太有侵略性、太恶意，甚至是太有用。相反，我担心我们最为珍视的这些人性特征——智慧、创造力、情感，甚至意识本身都太容易产生了。它们最终不过是一堆“小把戏”，仅仅用一套肤浅而粗暴的算法就可以解
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-08-01 11:01" pubdate>
+              2023-08-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%9C%88%E6%8A%A5/">月报</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/07/01/2023-06/" target="_self">
+          【月报】2023-06-登上庐山
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/07/01/2023-06/" target="_self">
+          
+          
+            
+          
+          
+
+终于一睹庐山真面目
+
+工作
+MDM 的工作进入了提测阶段，这个月的工作压力相对来说少了不少。
+帮助 iOS 的同学做了一个需求的改动，改动上比较简单吧，沟通上花了不少时间。
+
+学习书籍
+《智慧的疆界》
+
+达特矛斯夏季人工智能研究计划（英语：Dartmouth Summer Research Project on Artificial Intelligence）由约翰·麦卡锡等人于1956年8月
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-07-01 11:01" pubdate>
+              2023-07-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%9C%88%E6%8A%A5/">月报</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/06/07/2023-05/" target="_self">
+          【月报】2023-05-去魔都玩
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/06/07/2023-05/" target="_self">
+          
+          
+            
+          
+          
+
+拍摄于上海外滩
+
+工作与学习工作
+着手研发 MDM 里面关于分组管理的实现，完成的差不多了。
+
+学习英语
+这个月开始刻意的练习英语的听力，主要是通过听英文的播客changelog和看美剧老友记。我一般在早上开始工作前，或者下午三四点的时候，一边听着changelog一边敲代码，感觉还不错。另外，我挪移了大部分的下班休闲时间来看老友记，每天躺在床上，闲适的看剧，会让我感觉很放松，我很喜欢。
+
+技
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-06-07 11:01" pubdate>
+              2023-06-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%9C%88%E6%8A%A5/">月报</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/05/12/mysql-literacy/" target="_self">
+          【技术修养】关于 MySQL 的基础知识整理
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/05/12/mysql-literacy/" target="_self">
+          
+          
+            
+          
+          前言作为一个后端开发工程师，数据库是非常重要的知识。对于国内大多数互联网公司来说，MySQL 无疑是最常见也是最多使用的数据库。这篇文章，简单聊聊 MySQL 的一些原理知识和使用经验(里面有些内容来自网络，这里做了归纳整理，相关引用来源放在 reference 中)
+如何设计合理的表结构？在后端业务场景中，我们需要对数据库的表结构进行设计，以方便我们更合理的存储和管理业务数据。那我们应该如何设计
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-05-12 19:38" pubdate>
+              2023-05-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%8A%80%E6%9C%AF%E4%BF%AE%E5%85%BB/">技术修养</a>
+            
+              <a href="/tags/mysql/">mysql</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/05/07/2023-04/" target="_self">
+          【月报】2023-04-湘北军团
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/05/07/2023-04/" target="_self">
+          
+          
+            
+          
+          
+
+久违了，湘北军团。迟到了二十多年的全国大赛终究没有缺席。
+
+工作与学习工作因为工作的需求，这个月花了较多的时间投入到 GRPC 框架的学习和使用上。包括 GRPC 项目结构的搭建，跨 GRPC 服务中 context 的传递，GRPC interceptor 的使用，接口测试， 以及关于 protobuf 文件的管理。因为之前有 RPC 框架使用经验，所以上手还算是比较快的。
+但是关于 GRP
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-05-07 14:22" pubdate>
+              2023-05-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%9C%88%E6%8A%A5/">月报</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/04/22/protobuf_management/" target="_self">
+          【工程实践】如何对 GRPC Protobuf 文件进行管理？
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/04/22/protobuf_management/" target="_self">
+          
+          
+            
+          
+          问题描述因为工作的需求，这个月花了较多的时间投入到 GRPC 框架的学习和使用上。包括 GRPC 项目结构的搭建，跨 GRPC 服务中 context 的传递，GRPC interceptor 的使用，接口测试， 以及关于 protobuf 文件的管理。因为之前有 RPC 框架使用经验，所以上手还算是比较快的。
+但是关于 GRPC IDL 文件的管理还是花了不少心思去研究了一下。之前在腾讯的时候，
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-04-22 19:38" pubdate>
+              2023-04-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/">工程实践</a>
+            
+              <a href="/tags/protobuf/">protobuf</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/03/31/2023-03/" target="_self">
+          【月报】2023-03-大教堂与集市
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/03/31/2023-03/" target="_self">
+          
+          
+            
+          
+          
+
+这个月拜读了大教堂与集市。开源运动是黑客文化的终极浪漫～
+
+前言故人西辞黄鹤楼，烟花下月下扬州。李白的千古绝唱平添了扬州这座古城的无限风韵。在我的新年旅行计划中，扬州是里面必不可少的一站，然而我却食言了。事情的缘由是我身份证又又又遗失了，缺少了身份证，出行和住旅都不是很方便，三月出南京旅游的计划也不得不暂时搁置。明天就是四月了，那就四月份再去扬州吧～
+工作与学习
+之前一直在做的关于 openT
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-31 14:11" pubdate>
+              2023-03-31
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%9C%88%E6%8A%A5/">月报</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/02/28/2023-02/" target="_self">
+          【月报】2023-02-秦淮河畔
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/02/28/2023-02/" target="_self">
+          
+          
+            
+          
+          
+
+从老门东走到夫子庙，会路过秦淮河畔，晚上的灯光很美，游船也很有意境。
+
+在南京度过的第一个二月，也是玩的最开心的二月，二月有太多的事情值得回忆了。
+因为我在南京的缘故，一些朋友开始来南京游玩，一般会来我这边住宿。一来我租的房子有两个小房间，有一个客卧可以空出来，住宿不成问题，亦可省下一笔不小的酒店开销；二来自从离开学校之后，大家基本都是聚少离多，很多时候，只是依托于互联网来维系联系，可以线下见
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-28 23:11" pubdate>
+              2023-02-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%9C%88%E6%8A%A5/">月报</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

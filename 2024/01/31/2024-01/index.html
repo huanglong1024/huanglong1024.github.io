@@ -1,0 +1,505 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" href="/img/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个分享个人技术文章、随笔的小站">
+  <meta name="author" content="moranthuang">
+  <meta name="keywords" content="个人博客">
+  <meta name="description" content="2023年一年没怎么看过剧，没想到2024年一开始就一头扎进了追剧的浪潮中～  工作 因为所做的新项目需要和公司內的其他服务做深度集成，兄弟团队又没有足够的人手，这个月开始，我需要帮助团队做一些 inner source 的工作，以完成兄弟团队所承担的部分。不过我挺开心的，学到了不少兄弟团队的东西，对 V1 的整体业务理解也更深刻了一些。  认识的好几个同事去 Canada 了，不过他们说那边">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【月报】2024-01-繁花">
+<meta property="og:url" content="https://www.moranthuang.com/2024/01/31/2024-01/index.html">
+<meta property="og:site_name" content="随机浮游">
+<meta property="og:description" content="2023年一年没怎么看过剧，没想到2024年一开始就一头扎进了追剧的浪潮中～  工作 因为所做的新项目需要和公司內的其他服务做深度集成，兄弟团队又没有足够的人手，这个月开始，我需要帮助团队做一些 inner source 的工作，以完成兄弟团队所承担的部分。不过我挺开心的，学到了不少兄弟团队的东西，对 V1 的整体业务理解也更深刻了一些。  认识的好几个同事去 Canada 了，不过他们说那边">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.moranthuang.com/img/fanhua.jpeg">
+<meta property="article:published_time" content="2024-01-31T13:01:30.000Z">
+<meta property="article:modified_time" content="2024-02-23T15:47:20.308Z">
+<meta property="article:author" content="moranthuang">
+<meta property="article:tag" content="月报">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.moranthuang.com/img/fanhua.jpeg">
+  
+  <title>【月报】2024-01-繁花 - 随机浮游</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"www.moranthuang.com","root":"/","version":"1.8.12","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":"c09f3af8218aae9533eb15c9bf488736","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 60vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>随机浮游</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/post.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="【月报】2024-01-繁花">
+              
+                【月报】2024-01-繁花
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2024-01-31 21:01" pubdate>
+        2024年1月31日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      3 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【月报】2024-01-繁花</h1>
+            
+            <div class="markdown-body">
+              <p><img src="/../img/fanhua.jpeg" srcset="/img/loading.gif" lazyload alt="繁花"></p>
+<blockquote>
+<p>2023年一年没怎么看过剧，没想到2024年一开始就一头扎进了追剧的浪潮中～</p>
+</blockquote>
+<h2 id="工作"><a href="#工作" class="headerlink" title="工作"></a>工作</h2><ol>
+<li><p>因为所做的新项目需要和公司內的其他服务做深度集成，兄弟团队又没有足够的人手，这个月开始，我需要帮助团队做一些 inner source 的工作，以完成兄弟团队所承担的部分。不过我挺开心的，学到了不少兄弟团队的东西，对 V1 的整体业务理解也更深刻了一些。</p>
+</li>
+<li><p>认识的好几个同事去 Canada 了，不过他们说那边吃的贼贵，自己做饭吃，好多人都瘦了，Ca 生活水深火热啊朋友😂</p>
+</li>
+<li><p>公司年会办的比去年简陋了些，不过奖品还是一如既往的丰厚，发了好多 iphone 和 ipad，运气有点小差，只得到一个安慰奖。不过年会举办点——园博园倒是出奇意料的大，到处逛了逛，挺不错的。</p>
+</li>
+</ol>
+<h2 id="学习"><a href="#学习" class="headerlink" title="学习"></a>学习</h2><h3 id="书籍"><a href="#书籍" class="headerlink" title="书籍"></a>书籍</h3><p>今年给自己订了三百个小时的阅读任务，希望自己可以多读多看多充实。万事开头难，第一个月算是开了一个不错的头，读了不少书。技术为主，闲读为辅。</p>
+<ul>
+<li><p>《计算机是怎样跑起来的》&amp;《程序是怎样跑起来的》</p>
+<blockquote>
+<p>一个作者写的，因为成书已经十几年了，书中所举的有些例子稍显过时了。不过这两本书的前几章对我来说还是值得一看的。</p>
+</blockquote>
+</li>
+<li><p>《深入理解 nginx》 进行中</p>
+<blockquote>
+<p>一直以来对 nginx 始终不是很了解，nginx 网络真是博大精深啊～</p>
+</blockquote>
+</li>
+<li><p>《Flink原理与实践》</p>
+<blockquote>
+<p>重新看了一遍 flink 的知识，虽然我平时用不上，不过还是对大数据的相关技术栈抱有一定兴趣。</p>
+</blockquote>
+</li>
+<li><p>《变形记》</p>
+<blockquote>
+<p>读的过程中，我一直幻想着某天格里高尔能从甲虫重新变成人，可惜并没有奇迹发生。卡夫卡给了他同自己命运一般的安排，也如这个世界上的绝大多数人一样。</p>
+</blockquote>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://spark-reference-doc-cn.readthedocs.io/zh-cn/latest/index.html">Spark 2.2.x 中文官方参考文档</a></p>
+<blockquote>
+<p>在越来越强调实时的时代里，Spark 仍然有他的位置。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="生活"><a href="#生活" class="headerlink" title="生活"></a>生活</h2><h3 id="看剧"><a href="#看剧" class="headerlink" title="看剧"></a>看剧</h3><p>我不是一个经常看剧的人，一来是国内大多数电视剧都拍的比较一般，鲜有好剧。偶尔有几部还不错的剧集(比如去年国内比较热的《狂飙》和《漫长的季节》等)，我又没有那么多空闲的时间去追，基本都是快速过一遍评价和剧情居多。不过今年初，王家卫+胡歌的组合还是吸引了我，和平饭店，黄河路的霓虹，股市中的造福神话和天台孤影，以及那个年代的人情。繁花一场游戏一场梦。</p>
+<h2 id="随便看看-amp-听听"><a href="#随便看看-amp-听听" class="headerlink" title="随便看看&amp;听听"></a>随便看看&amp;听听</h2><h3 id="播客"><a href="#播客" class="headerlink" title="播客"></a>播客</h3><p><a target="_blank" rel="noopener" href="https://podcasts.apple.com/cn/podcast/%E5%9F%BA%E6%9C%AC%E6%97%A0%E5%AE%B3-mostly-harmless/id1512748339?i=1000643424571">基本无害：扬州生存手册</a></p>
+<p><a target="_blank" rel="noopener" href="https://podcasts.apple.com/cn/podcast/109-%E7%89%B9%E6%96%AF%E6%8B%89cybertruck-%E4%B8%8A-%E8%80%81%E7%BE%8E%E7%9A%AE%E5%8D%A1%E6%8C%87%E5%8D%97-%E5%AF%B9%E8%AF%9D%E5%98%89%E5%AE%BE-%E8%AE%B8%E6%96%B0%E7%86%A0-%E8%80%81%E5%8D%B0/id1586870724?i=1000642208455">孤岛车谈：特斯拉 Cybetruck</a></p>
+<h3 id="开心一下"><a href="#开心一下" class="headerlink" title="开心一下"></a>开心一下</h3><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/641338592">如何看待前端大佬【黄玄】参加也许你要恋爱了相亲节目？</a>  </p>
+<p>虽然不是搞前端的，不过在上学那会儿之前就有关注黄玄了，当时还是赖佬推荐给我的。偶尔也会点进黄玄的博客看看。这次在推特上看到不少前端开源圈子的人转这个恋综，感觉还挺有意思的，就快速看了下。这下真前端娱乐圈了。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%9C%88%E6%8A%A5/">月报</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/05/engineering-literacy/">
+                        <span class="hidden-mobile">【技术修养】关于工程素养</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"b21c0f0d965ed167112d","clientSecret":"fd6a23ec9cf9e194ded7670e0bad810215a60fa8","repo":"gitalk","owner":"moranthuang","admin":"moranthuang","language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: '22d5a4fc3f7132e63e249964cae0efc5'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

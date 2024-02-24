@@ -1,0 +1,498 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" href="/img/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个分享个人技术文章、随笔的小站">
+  <meta name="author" content="moranthuang">
+  <meta name="keywords" content="个人博客">
+  <meta name="description" content="问题描述因为工作的需求，这个月花了较多的时间投入到 GRPC 框架的学习和使用上。包括 GRPC 项目结构的搭建，跨 GRPC 服务中 context 的传递，GRPC interceptor 的使用，接口测试， 以及关于 protobuf 文件的管理。因为之前有 RPC 框架使用经验，所以上手还算是比较快的。 但是关于 GRPC IDL 文件的管理还是花了不少心思去研究了一下。之前在腾讯的时候，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【工程实践】如何对 GRPC Protobuf 文件进行管理？">
+<meta property="og:url" content="https://www.moranthuang.com/2023/04/22/protobuf_management/index.html">
+<meta property="og:site_name" content="随机浮游">
+<meta property="og:description" content="问题描述因为工作的需求，这个月花了较多的时间投入到 GRPC 框架的学习和使用上。包括 GRPC 项目结构的搭建，跨 GRPC 服务中 context 的传递，GRPC interceptor 的使用，接口测试， 以及关于 protobuf 文件的管理。因为之前有 RPC 框架使用经验，所以上手还算是比较快的。 但是关于 GRPC IDL 文件的管理还是花了不少心思去研究了一下。之前在腾讯的时候，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.moranthuang.com/img/image-20240223223253237.png">
+<meta property="article:published_time" content="2023-04-22T11:38:28.000Z">
+<meta property="article:modified_time" content="2024-02-23T15:16:58.752Z">
+<meta property="article:author" content="moranthuang">
+<meta property="article:tag" content="工程实践">
+<meta property="article:tag" content="protobuf">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.moranthuang.com/img/image-20240223223253237.png">
+  
+  <title>【工程实践】如何对 GRPC Protobuf 文件进行管理？ - 随机浮游</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"www.moranthuang.com","root":"/","version":"1.8.12","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":"c09f3af8218aae9533eb15c9bf488736","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 60vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>随机浮游</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/post.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="【工程实践】如何对 GRPC Protobuf 文件进行管理？">
+              
+                【工程实践】如何对 GRPC Protobuf 文件进行管理？
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2023-04-22 19:38" pubdate>
+        2023年4月22日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      4 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【工程实践】如何对 GRPC Protobuf 文件进行管理？</h1>
+            
+            <div class="markdown-body">
+              <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>因为工作的需求，这个月花了较多的时间投入到 GRPC 框架的学习和使用上。包括 GRPC 项目结构的搭建，跨 GRPC 服务中 context 的传递，GRPC interceptor 的使用，接口测试， 以及关于 protobuf 文件的管理。因为之前有 RPC 框架使用经验，所以上手还算是比较快的。</p>
+<p>但是关于 GRPC IDL 文件的管理还是花了不少心思去研究了一下。之前在腾讯的时候，有一个独立的平台来对 protobuf 文件进行管理，可以直接在平台上进行 protobuf 文件的定义和修改，并且平台会帮你生成桩代码，且提供版本管理的功能。因为目前所在公司并没有提供这个的平台，所以 protobuf 文件的管理需要另寻它法。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>经过调研，大体上有三种方法。</p>
+<p>第一种：存放在代码仓库，直接将项目所依赖到的所有 Proto 文件都存放在 <code>proto/</code> 目录下，不经过开发工具的自动拉取和发布。但是这种一份 proto 文件需要多处维护，容易造成不一致。并且每次都需要程序员手动去介入 复制粘贴。基本都是不采纳的。只建议自己学习练习的时候可以这样使用。</p>
+<p>第二种：独立仓库，即用一个独立的仓库来管理所有的 protobuf 文件。提前提供好生成桩代码的脚本文件，将生成的桩代码作为 sdk 引入使用。</p>
+<p>第三种：镜像仓库，也是用一个独立的仓库来管理所有的 protobuf 文件。通过 ci 生成桩代码，并将桩代码同步到镜像仓库中(可以是一个 api 大仓，或者是多个子项目的小仓)。主要目的是将 protobuf 文件和桩代码文件分开管理。</p>
+<p>同时对于第二种和第三种方法，在使用上，也有不同选择。用户可以选择用 submodule 的方法，也可以使用  se mantic version。</p>
+<p>基于一些对比思考，我最终采用了镜像仓库 + api 大仓(通过结构来划分领域) + semantic version. </p>
+<blockquote>
+<p>其中 repo flow 如下：</p>
+<p><img src="/../img/image-20240223223253237.png" srcset="/img/loading.gif" lazyload alt="protobuf management gitaction work flow"></p>
+<p>版本号管理如下：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">tag</span> template: v&#123;MAJOR&#125;.&#123;MINOR&#125;.&#123;PATCH&#125;<br><span class="hljs-attribute">for</span> example: v<span class="hljs-number">1</span>.<span class="hljs-number">0</span>.<span class="hljs-number">11</span><br></code></pre></td></tr></table></figure>
+
+<p>reference: <a target="_blank" rel="noopener" href="https://semver.org/">Semantic Versioning 2.0.0</a></p>
+</blockquote>
+<p>理由如下：镜像仓库将 protobuf 文件和桩代码分开管理，满足接口定义与实现划分的抽象理念，后续如果有其他语言的服务，方便扩展(修改 ci 即可)。根据 <a target="_blank" rel="noopener" href="https://github.com/googleapis/googleapis">googleapis</a> 的设计，以及我们服务的规模(体量小，微服务划分不算太多)，我们倾向于对于 protobuf 的统一管理，即 api 大仓。同时采用 semantic version 来进行版本管理, 没有选择 submodule 的方式主要是因为 semantic version 这种方式更容易理解和使用，submodule 更多是用在 go 语言项目中，并且基于分支的使用方式不利于后续的管理，且在出现错误的时候，需要回滚代码。</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://grpc.io/">GRPC 官方文档</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/golang-standards/project-layout">Standard Go Project Layout</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://laiye.com/news/post/2585.html">来也科技 Protobuf 最佳工程实践</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://yuyy.info/?p=1980">Gitlab CI/CD 实践六：统一管理 protocol buffer，API 大仓设计与实现</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/googleapis/googleapis">googleapis</a> </p>
+</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/">工程实践</a>
+                    
+                      <a class="hover-with-bg" href="/tags/protobuf/">protobuf</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/05/07/2023-04/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【月报】2023-04-湘北军团</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/03/31/2023-03/">
+                        <span class="hidden-mobile">【月报】2023-03-大教堂与集市</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"b21c0f0d965ed167112d","clientSecret":"fd6a23ec9cf9e194ded7670e0bad810215a60fa8","repo":"gitalk","owner":"moranthuang","admin":"moranthuang","language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: '3ecc37883dcef1601a70f35220390b1c'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

@@ -1,0 +1,626 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" href="/img/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个分享个人技术文章、随笔的小站">
+  <meta name="author" content="moranthuang">
+  <meta name="keywords" content="个人博客">
+  <meta name="description" content="引言我是学软件工程专业的，大学那会，软件工程是我们的必修课，有3个学分。教那门课的老师经常提醒我们，作为软件工程专业的学生，你们得有工程能力。造一架飞机是一个工程，挖一条隧道是一个工程，做一个软件也是一个工程，得有工程师的思维，得有全局意识。 老实说，这些话，我到现在也是一知半解。 写这篇文章仅仅是对自己目前的所学的一个小的总结，仅仅从个人的角度，聊聊一个软件工程师，特别是后端软件工程师，需要具备">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【技术修养】关于工程素养">
+<meta property="og:url" content="https://www.moranthuang.com/2024/01/05/engineering-literacy/index.html">
+<meta property="og:site_name" content="随机浮游">
+<meta property="og:description" content="引言我是学软件工程专业的，大学那会，软件工程是我们的必修课，有3个学分。教那门课的老师经常提醒我们，作为软件工程专业的学生，你们得有工程能力。造一架飞机是一个工程，挖一条隧道是一个工程，做一个软件也是一个工程，得有工程师的思维，得有全局意识。 老实说，这些话，我到现在也是一知半解。 写这篇文章仅仅是对自己目前的所学的一个小的总结，仅仅从个人的角度，聊聊一个软件工程师，特别是后端软件工程师，需要具备">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.moranthuang.com/img/%E5%B7%A5%E7%A8%8B%E7%B4%A0%E5%85%BB.png">
+<meta property="og:image" content="https://www.moranthuang.com/img/git_specification.png">
+<meta property="og:image" content="https://www.moranthuang.com/img/code_review_specification.png">
+<meta property="og:image" content="https://www.moranthuang.com/img/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png">
+<meta property="og:image" content="https://www.moranthuang.com/img/troubleshooting%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png">
+<meta property="article:published_time" content="2024-01-05T11:38:28.000Z">
+<meta property="article:modified_time" content="2024-02-23T15:36:55.964Z">
+<meta property="article:author" content="moranthuang">
+<meta property="article:tag" content="技术修养">
+<meta property="article:tag" content="工程素养">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.moranthuang.com/img/%E5%B7%A5%E7%A8%8B%E7%B4%A0%E5%85%BB.png">
+  
+  <title>【技术修养】关于工程素养 - 随机浮游</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"www.moranthuang.com","root":"/","version":"1.8.12","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":"c09f3af8218aae9533eb15c9bf488736","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 60vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>随机浮游</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/post.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="【技术修养】关于工程素养">
+              
+                【技术修养】关于工程素养
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2024-01-05 19:38" pubdate>
+        2024年1月5日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.2k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      10 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【技术修养】关于工程素养</h1>
+            
+            <div class="markdown-body">
+              <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>我是学软件工程专业的，大学那会，软件工程是我们的必修课，有3个学分。教那门课的老师经常提醒我们，作为软件工程专业的学生，你们得有工程能力。造一架飞机是一个工程，挖一条隧道是一个工程，做一个软件也是一个工程，得有工程师的思维，得有全局意识。</p>
+<p>老实说，这些话，我到现在也是一知半解。</p>
+<p>写这篇文章仅仅是对自己目前的所学的一个小的总结，仅仅从个人的角度，聊聊一个软件工程师，特别是后端软件工程师，需要具备咋样的工程素养。此篇也是自己对相关知识体系的一个简单梳理，用于后面自查。</p>
+<p><img src="/../img/%E5%B7%A5%E7%A8%8B%E7%B4%A0%E5%85%BB.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="计算机基础知识"><a href="#计算机基础知识" class="headerlink" title="计算机基础知识"></a>计算机基础知识</h2><p>基础知识是作为一个程序员的内功。基座得搭好，上层建筑才稳当。这些知识自己也都还在不断学习之中，简短称述一下以自勉。</p>
+<ul>
+<li>操作系统与计算机组成原理</li>
+<li>计算机网络</li>
+<li>数据结构与算法</li>
+<li>编程语言</li>
+<li>软件架构+数据库+中间件+领域知识</li>
+<li>实践能力+工具链使用</li>
+</ul>
+<h2 id="开发规范"><a href="#开发规范" class="headerlink" title="开发规范"></a>开发规范</h2><h3 id="项目结构规范"><a href="#项目结构规范" class="headerlink" title="项目结构规范"></a>项目结构规范</h3><p>搭建项目软件开发的第一步，如何划分是个细致活。对于 java 而言，看过的很多项目结构都大差不差，对于 go lang 而言，就有不少分歧。举个简单的例子，比如 golang 的项目中，不少开源的论坛和文章中倡导去掉 dto 层，利用 golang struct 中的 tag 来做扩展，来定义 dto 的返回对象字段(reference: <a target="_blank" rel="noopener" href="https://dsysd-dev.medium.com/stop-using-dtos-in-go-its-not-java-96ef4794481a">Stop Using DTOs in Go, It’s Not Java</a>)。golang is not java！(😂)</p>
+<p>这里简单陈列下网上 java 和 golang 的项目结构（仅做参考）</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000022110134">java项目结构</a></li>
+<li><a target="_blank" rel="noopener" href="https://makeoptim.com/golang/standards/project-layout/">golang 编程规范 - 项目目录结构</a></li>
+</ul>
+<h3 id="编程语言规范"><a href="#编程语言规范" class="headerlink" title="编程语言规范"></a>编程语言规范</h3><p>一些开源的代码规范。</p>
+<ul>
+<li>java <ul>
+<li>Google java 风格指南：<a target="_blank" rel="noopener" href="https://google.github.io/styleguide/">https://google.github.io/styleguide/</a></li>
+<li>阿里巴巴java开发手册：<a target="_blank" rel="noopener" href="https://github.com/mysterin/alibaba-java-specification/blob/master/alibaba-java-specification.md">https://github.com/mysterin/alibaba-java-specification/blob/master/alibaba-java-specification.md</a></li>
+<li>腾讯 java 安全指南：<a target="_blank" rel="noopener" href="https://github.com/Tencent/secguide/blob/main/Java%E5%AE%89%E5%85%A8%E6%8C%87%E5%8D%97.md">https://github.com/Tencent/secguide/blob/main/Java%E5%AE%89%E5%85%A8%E6%8C%87%E5%8D%97.md</a></li>
+</ul>
+</li>
+<li>golang<ul>
+<li>Google golang 风格指南：<a target="_blank" rel="noopener" href="https://google.github.io/styleguide/">https://google.github.io/styleguide/</a></li>
+<li>Uber golang 风格指南：<a target="_blank" rel="noopener" href="https://github.com/uber-go/guide?tab=readme-ov-file">https://github.com/uber-go/guide?tab=readme-ov-file</a></li>
+<li>腾讯 go 代码规范：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/xuweiqiang/p/15337132.html">https://www.cnblogs.com/xuweiqiang/p/15337132.html</a></li>
+<li>腾讯 golang 安全指南：<a target="_blank" rel="noopener" href="https://github.com/Tencent/secguide/blob/main/Go%E5%AE%89%E5%85%A8%E6%8C%87%E5%8D%97.md">https://github.com/Tencent/secguide/blob/main/Go%E5%AE%89%E5%85%A8%E6%8C%87%E5%8D%97.md</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="Git-规范"><a href="#Git-规范" class="headerlink" title="Git 规范"></a>Git 规范</h3><p>好的代码提交规范是项目的生命线。</p>
+<p>【git 分支与代码提交规范】</p>
+<ul>
+<li>小批量代码提交，每次代码提交时尽可能&lt;=400行</li>
+</ul>
+<p>【git commit log 规范】</p>
+<p>通用Commit Message 格式如下。</p>
+<p>目前规范使用较多的是 <a target="_blank" rel="noopener" href="https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines">Angular 团队的规范 </a>, 继而衍生了 <a target="_blank" rel="noopener" href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits specification</a>. 很多工具也是基于此规范, 它的 message 格式如下:</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-params">&lt;type&gt;</span>(<span class="hljs-params">&lt;scope&gt;</span>): <span class="hljs-params">&lt;subject&gt;</span><br><span class="hljs-comment">// 空一行</span><br><span class="hljs-params">&lt;body&gt;</span><br><span class="hljs-comment">// 空一行</span><br><span class="hljs-params">&lt;footer&gt;</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>备注：</p>
+<p>git commit 提交时需要换行时，请使用Bash命令行的Git，你可以执行以下操作：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">&gt;</span><span class="bash">git commit -m <span class="hljs-string">&quot;this is</span></span><br><span class="hljs-meta">&gt;</span><span class="bash"><span class="hljs-string">&gt; a line</span></span> <br><span class="hljs-meta">&gt;</span><span class="bash"><span class="hljs-string">&gt; with new lines</span></span><br><span class="hljs-meta">&gt;</span><span class="bash"><span class="hljs-string">&gt; maybe&quot;</span></span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>-m 后面使用双引号</li>
+<li>换行时，直接按回车enter键</li>
+<li>log输入完后，输入“ ，再回车就可以commit成功了</li>
+</ul>
+</blockquote>
+<p><strong>简单汇总：</strong></p>
+<img src="/../img/git_specification.png" srcset="/img/loading.gif" lazyload alt="image-20220922183347992" style="zoom:67%;">
+
+<p>Reference:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines">Angular git 提交信息规范</a></li>
+<li><a target="_blank" rel="noopener" href="https://zjdoc-gitguide.readthedocs.io/zh-cn/latest/index.html">开源文档 GitGuide</a></li>
+</ul>
+<h3 id="CodeReview"><a href="#CodeReview" class="headerlink" title="CodeReview"></a>CodeReview</h3><blockquote>
+<p>当我在CR的时候，我在CR什么？</p>
+</blockquote>
+<p>硅谷的知名互联网公司，都搞merge request/push request合入mainline之前的code review。Google为了保证review质量，还搞了Readability认证。网上有很多<a target="_blank" rel="noopener" href="https://www.pullrequest.com/blog/google-code-review-readability-certification/">资料、报道</a>有讲解到。Google在<a target="_blank" rel="noopener" href="https://google.github.io/eng-practices/review/reviewer/looking-for.html">公开网站</a>上也有说到。</p>
+<p>Code Review 的大方向</p>
+<p><img src="/../img/code_review_specification.png" srcset="/img/loading.gif" lazyload alt="code review"></p>
+<p>Reference:</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://google.github.io/eng-practices">Google Engineering Practices Documentation</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://lib.jimmysong.io/eng-practices/">谷歌工程实践 宋净超中文翻译版</a></p>
+</li>
+</ul>
+<h3 id="代码坏味道"><a href="#代码坏味道" class="headerlink" title="代码坏味道"></a>代码坏味道</h3><p>写一份好的代码，拒绝坏味道。</p>
+<p>Reference:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://book-refactoring2.ifmicro.com/docs/ch3.html">重构-代码坏味道</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6962812178537644063">25种代码坏味道总结+优化示例</a></li>
+</ul>
+<h3 id="主干开发？大仓小仓之争？开发流程理念的理解"><a href="#主干开发？大仓小仓之争？开发流程理念的理解" class="headerlink" title="主干开发？大仓小仓之争？开发流程理念的理解"></a>主干开发？大仓小仓之争？开发流程理念的理解</h3><p>在我人生第一家公司那里，我第一次了解到了大仓的概念。依稀记得当时公司内有很多大仓小仓的讨论，是屠龙术还是前朝宝剑斩今朝的官，大家各说纷云。不管用哪种，都了解一下其中的利弊，也挺好的。</p>
+<p>Reference:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/28524745">为什么Google上十亿行代码都放在同一个仓库里?</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1881386">从微信后端仓库发展史谈谈单仓和多仓</a></li>
+<li><a target="_blank" rel="noopener" href="https://36kr.com/p/1218375440667012">Google 和腾讯为什么都采用主干开发模式？</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6967981728619544606">特性分支开发模式 or 主干开发模式，团队该如何选择？</a></li>
+<li><a target="_blank" rel="noopener" href="https://codec.wang/blog/mono-repo-in-js">大仓实践录：Lerna/NPM/Yarn Workspace 方案组合和性能对比</a></li>
+<li><a target="_blank" rel="noopener" href="https://my.oschina.net/u/5783135/blog/10750685">前端 monorepo 大仓权限设计的思考与实现</a></li>
+</ul>
+<h2 id="项目管理能力"><a href="#项目管理能力" class="headerlink" title="项目管理能力"></a>项目管理能力</h2><p>不要只是低头写代码，有时候，也得抬头看看上下游，看看这艘船到哪了。</p>
+<ul>
+<li>需求分析要透彻</li>
+<li>协调上下流的沟通能力</li>
+<li>能合理规划开发流程和进度</li>
+<li>及时暴露问题</li>
+</ul>
+<p>Reference:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/zhengda/The-Mythical-Man-Month-zh/blob/main/docs/README.md">人月神话</a></li>
+</ul>
+<h2 id="文档撰写能力"><a href="#文档撰写能力" class="headerlink" title="文档撰写能力"></a>文档撰写能力</h2><blockquote>
+<p>绝大部分的程序员都讨厌写文档，但又讨厌别人不写文档。</p>
+</blockquote>
+<p>个人的理解上，我们需要掌握以下文档的编写：</p>
+<ul>
+<li>需求分析文档：一般产品会写需求文档PRD，但是作为程序员，我们也应该具备撰写需求分析文档的能力。</li>
+<li>架构设计文档：对项目的整体架构设计</li>
+<li>技术设计文档：仅需要概要设计文档，详细设计就是代码本身</li>
+<li>API参考文档（reference doc）一般由代码直接生成。它的量是最大的，变更最频繁的</li>
+<li>SDK或者框架使用文档/教程：自己封装的SDK、框架等，写个详细的教程传递出去，让更多人用</li>
+<li>技术分享文档：个人的技术输出，当然了，很多时候也用 PPT，我更喜欢用文档。</li>
+<li>Readme文档：每个项目的介绍文档，这个还挺重要的，一份好的 readme 就是一个项目最好的”个人简历”</li>
+<li>新人文档：帮助团队新同学快速了解团队工作内容，快速融入。我个人认为这个很重要，一份好的新人文档也相当于对自己团队的工作内容总结和工作要求说明。</li>
+</ul>
+<p>Reference:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/google/styleguide/blob/gh-pages/docguide/README.md">Google documentation guide</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ruanyf/document-style-guide">中文技术文档的写作规范 阮一峰</a> </li>
+</ul>
+<h2 id="测试能力"><a href="#测试能力" class="headerlink" title="测试能力"></a>测试能力</h2><p>作为一个有责任心的程序员，从来不是写完代码就完事了。我们得保证代码的质量，除了依靠测试同学的努力，自身也得投入部分精力。据我所知，现在很多大厂都会要求编程人员写单测，搞测试左移，这也被称之为 TDD，即测试驱动开发。这种做法是否有效，有多大效果我这里不想高谈阔论。但是我个人觉得，自己写的代码，自测的质量是一定要保证的。</p>
+<h2 id="软件维护能力"><a href="#软件维护能力" class="headerlink" title="软件维护能力"></a>软件维护能力</h2><p><img src="/../img/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png" srcset="/img/loading.gif" lazyload alt="软件工程生命周期"></p>
+<p>​                                     软件生命周期</p>
+<p>从软件工程的角度来说，软件的维护占据了其生命周期的绝大部分。如果维护软件的正常运行，又如何度量软件的运行质量呢？这里我简单说两个我个人比较关心的点——SLA 和 Troubleshooting。</p>
+<h3 id="SLA"><a href="#SLA" class="headerlink" title="SLA"></a>SLA</h3><p>一般软件服务都会有 SLA 的保证，特别是对中台类型的服务。SLA 是服务质量的重要衡量指标。其主要的衡量纬度如下：</p>
+<ul>
+<li><p>服务可用性</p>
+</li>
+<li><p>错误率</p>
+</li>
+<li><p>安全性</p>
+</li>
+<li><p>响应时间</p>
+</li>
+<li><p>业务成果</p>
+</li>
+<li><p>首次呼叫解决率</p>
+</li>
+<li><p>放弃率</p>
+</li>
+</ul>
+<p>Reference:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://aws.amazon.com/cn/what-is/service-level-agreement/">什么是服务等级协议（SLA）</a></li>
+</ul>
+<h3 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h3><p>Troubleshooting = trouble(问题/故障) + shooter(射手/枪手)</p>
+<blockquote>
+<p>简而言之：用 shooter 将 trouble maker 解决掉</p>
+</blockquote>
+<p><img src="/../img/troubleshooting%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png" srcset="/img/loading.gif" lazyload></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%8A%80%E6%9C%AF%E4%BF%AE%E5%85%BB/">技术修养</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%B7%A5%E7%A8%8B%E7%B4%A0%E5%85%BB/">工程素养</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/01/31/2024-01/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【月报】2024-01-繁花</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/01/2023-year-end-summary/">
+                        <span class="hidden-mobile">2023年终总结--探索更大的世界和生活</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"b21c0f0d965ed167112d","clientSecret":"fd6a23ec9cf9e194ded7670e0bad810215a60fa8","repo":"gitalk","owner":"moranthuang","admin":"moranthuang","language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: 'eb7b4fae4023461bd4ab0f7ff3f49663'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
