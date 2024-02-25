@@ -1,0 +1,541 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" href="/img/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一个分享个人技术文章、随笔的小站">
+  <meta name="author" content="moranthuang">
+  <meta name="keywords" content="个人博客">
+  <meta name="description" content="引言现在很多服务都是分布式架构，众多的微服务部署在云上环境上。所以，我们需要一种机制，来对服务的运行状况来进行观测。因此 可观测性（Observability）这个词也被越来越多的人提及。 简单来讲，可观测性是从系统内部出发，基于白盒化的思路去监测系统内部的运行情况。可观测性贯穿应用开发的整个生命周期，通过分析应用的指标、日志和链路等数据，构建完整的观测模型，从而实现故障诊断、根因分析和快速恢复。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【工程实践】如何在 K8S 环境下搭建一个日志系统？">
+<meta property="og:url" content="https://www.moranthuang.com/2023/10/18/Logging-system-ELK/index.html">
+<meta property="og:site_name" content="随机浮游">
+<meta property="og:description" content="引言现在很多服务都是分布式架构，众多的微服务部署在云上环境上。所以，我们需要一种机制，来对服务的运行状况来进行观测。因此 可观测性（Observability）这个词也被越来越多的人提及。 简单来讲，可观测性是从系统内部出发，基于白盒化的思路去监测系统内部的运行情况。可观测性贯穿应用开发的整个生命周期，通过分析应用的指标、日志和链路等数据，构建完整的观测模型，从而实现故障诊断、根因分析和快速恢复。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.moranthuang.com/img/metricslogtrace.png">
+<meta property="og:image" content="https://www.moranthuang.com/img/elk_flow.png">
+<meta property="og:image" content="https://www.moranthuang.com/img/kinana_shouye.png">
+<meta property="og:image" content="https://www.moranthuang.com/img/kibana_discover.png">
+<meta property="og:image" content="https://www.moranthuang.com/img/kibana_log_info.png">
+<meta property="article:published_time" content="2023-10-18T11:38:28.000Z">
+<meta property="article:modified_time" content="2024-02-25T07:36:20.446Z">
+<meta property="article:author" content="moranthuang">
+<meta property="article:tag" content="工程实践">
+<meta property="article:tag" content="日志系统">
+<meta property="article:tag" content="ELK">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.moranthuang.com/img/metricslogtrace.png">
+  
+  <title>【工程实践】如何在 K8S 环境下搭建一个日志系统？ - 随机浮游</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"www.moranthuang.com","root":"/","version":"1.8.12","typing":{"enable":false,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":"c09f3af8218aae9533eb15c9bf488736","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 60vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>随机浮游</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/post.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="【工程实践】如何在 K8S 环境下搭建一个日志系统？">
+              
+                【工程实践】如何在 K8S 环境下搭建一个日志系统？
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2023-10-18 19:38" pubdate>
+        2023年10月18日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      6.5k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      20 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【工程实践】如何在 K8S 环境下搭建一个日志系统？</h1>
+            
+            <div class="markdown-body">
+              <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>现在很多服务都是分布式架构，众多的微服务部署在云上环境上。所以，我们需要一种机制，来对服务的运行状况来进行观测。因此 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Observability">可观测性</a>（Observability）这个词也被越来越多的人提及。</p>
+<p>简单来讲，可观测性是从系统内部出发，基于白盒化的思路去监测系统内部的运行情况。可观测性贯穿应用开发的整个生命周期，通过分析应用的指标、日志和链路等数据，构建完整的观测模型，从而实现故障诊断、根因分析和快速恢复。</p>
+<p><img src="/../img/metricslogtrace.png" srcset="/img/loading.gif" lazyload alt="metrics+log+traceing"></p>
+<p>本篇文章，简单聊聊在 k8s 环境下，如何搭建一个可用的集中化日志系统——ELK 来对云上服务进行日志采集和统一展示。</p>
+<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><h3 id="DaemonSet"><a href="#DaemonSet" class="headerlink" title="DaemonSet"></a>DaemonSet</h3><p>在开始，先简单讲讲什么是 DaemonSet。</p>
+<p><a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/daemonset/">DaemonSet官方文档介绍 </a></p>
+<blockquote>
+<p><strong>DaemonSet</strong> 确保全部（或者某些）节点上运行一个 Pod 的副本。 当有节点加入集群时， 也会为他们新增一个 Pod 。 当有节点从集群移除时，这些 Pod 也会被回收。删除 DaemonSet 将会删除它创建的所有 Pod。</p>
+</blockquote>
+<p>DaemonSet 的一些典型用法：</p>
+<ul>
+<li>在每个节点上运行集群守护进程</li>
+<li>在每个节点上运行日志收集守护进程</li>
+<li>在每个节点上运行监控守护进程</li>
+</ul>
+<h2 id="ELK-组件介绍"><a href="#ELK-组件介绍" class="headerlink" title="ELK 组件介绍"></a>ELK 组件介绍</h2><h3 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/index.html">Elastic document</a></p>
+</blockquote>
+<p>用来负责存储最终数据、建立索引和对外提供搜索日志的功能。它是个开源分布式搜索引擎，提供搜集、分析、存储数据三大功能。它的特点有：分布式，零配置，自动发现，索引自动分片，索引副本机制，restful风格接口，多数据源，自动搜索负载等。</p>
+<h3 id="Kibana"><a href="#Kibana" class="headerlink" title="Kibana"></a>Kibana</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/kibana/master/index.html">kibana document</a></p>
+</blockquote>
+<p>一个优秀的前端日志展示框架，它可以非常详细的将日志转化为各种图表，为用户提供强大的数据可视化支持。</p>
+<h3 id="Fluent-Bit"><a href="#Fluent-Bit" class="headerlink" title="Fluent-Bit"></a>Fluent-Bit</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.fluentbit.io/manual/about/what-is-fluent-bit">Fluent-Bit document</a></p>
+</blockquote>
+<p>Fluentd是一个开源的统一数据收集器，为了给你最好用，容易理数据，以统一的数据收集和消费数据。它关键的特性有，尽可能的把数据结构化为json，可插拔的架构，最小化的使用资源，支持缓存避免数据丢失，支持failover，支持高可用，强大的社区。</p>
+<h2 id="整体方案概览"><a href="#整体方案概览" class="headerlink" title="整体方案概览"></a>整体方案概览</h2><p><img src="/../img/elk_flow.png" srcset="/img/loading.gif" lazyload alt="elk-flow"></p>
+<h2 id="部署实操"><a href="#部署实操" class="headerlink" title="部署实操"></a>部署实操</h2><h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><ul>
+<li>k8s 环境</li>
+<li>虚拟机</li>
+</ul>
+<p>这里假设我们的服务部署在k8s上，ES 和 kibana 则部署在同一网络环境下的虚拟机上.</p>
+<h3 id="部署-Elasticsearch"><a href="#部署-Elasticsearch" class="headerlink" title="部署 Elasticsearch"></a>部署 Elasticsearch</h3><h4 id="下载-ES"><a href="#下载-ES" class="headerlink" title="下载 ES"></a>下载 ES</h4><blockquote>
+<p>Official Elasticsearch: <a target="_blank" rel="noopener" href="https://www.elastic.co/downloads/elasticsearch">https://www.elastic.co/downloads/elasticsearch</a></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ curl -O <span class="hljs-string">&#x27;https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.12.0-linux-x86_64.tar.gz&#x27;</span><br>...<br></code></pre></td></tr></table></figure>
+
+<h4 id="创建-ES-的数据存储文件夹"><a href="#创建-ES-的数据存储文件夹" class="headerlink" title="创建 ES 的数据存储文件夹"></a>创建 ES 的数据存储文件夹</h4><p>Create <code>data</code> and <code>logs</code> directories for Elasticsearch.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ mkdir ~/es_data<br>$ mkdir ~/es_logs<br></code></pre></td></tr></table></figure>
+
+<h4 id="修改-ES-配置文件"><a href="#修改-ES-配置文件" class="headerlink" title="修改 ES 配置文件"></a>修改 ES 配置文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ vim ~/elasticsearch-7.12.0/config/jvm.options<br>...<br>$ vim ~/elasticsearch-7.12.0/config/elasticsearch.yml<br>...<br></code></pre></td></tr></table></figure>
+
+<h4 id="运行ES"><a href="#运行ES" class="headerlink" title="运行ES"></a>运行ES</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ nohup ~/elasticsearch-7.12.0/bin/elasticsearch &amp;<br>...<br></code></pre></td></tr></table></figure>
+
+<h3 id="部署-Kibana"><a href="#部署-Kibana" class="headerlink" title="部署 Kibana"></a>部署 Kibana</h3><figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs livescript">$ docker run <span class="hljs-string">\</span><br>    -d <span class="hljs-string">\</span><br>    --name kb <span class="hljs-string">\</span><br>    -p <span class="hljs-string">&#x27;127.0.0.1:5602:5601&#x27;</span> <span class="hljs-string">\</span><br>    -e ELASTICSEARCH_HOSTS=<span class="hljs-string">&quot;http://&lt;host&gt;:&lt;port&gt;&quot;</span> <span class="hljs-string">\</span><br>    <span class="hljs-string">&#x27;docker.elastic.co/kibana/kibana:7.10.1&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="部署-Fluent-bit-重点"><a href="#部署-Fluent-bit-重点" class="headerlink" title="部署 Fluent-bit (重点)"></a>部署 Fluent-bit (重点)</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment"># Create a K8s Namespace for logging</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Namespace</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">logging</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">fluent-bit</span><br><br><span class="hljs-meta">---</span><br><span class="hljs-comment"># Create a K8s ServiceAccount for fluent-bit</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">ServiceAccount</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">fluent-bit-service-account</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">logging</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">fluent-bit</span><br><br><span class="hljs-meta">---</span><br><span class="hljs-comment"># Create a K8s RBAC role for fluent-bit</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">rbac.authorization.k8s.io/v1beta1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterRole</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">fluent-bit-read-role</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">fluent-bit</span><br><span class="hljs-attr">rules:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">apiGroups:</span> [<span class="hljs-string">&quot;&quot;</span>]<br>    <span class="hljs-attr">resources:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">namespaces</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">pods</span><br>    <span class="hljs-attr">verbs:</span> [<span class="hljs-string">&quot;get&quot;</span>, <span class="hljs-string">&quot;list&quot;</span>, <span class="hljs-string">&quot;watch&quot;</span>]<br><br><span class="hljs-meta">---</span><br><span class="hljs-comment"># Binding RBAC role for fluent-bit</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">rbac.authorization.k8s.io/v1beta1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterRoleBinding</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">fluent-bit-role-binding</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">fluent-bit</span><br><span class="hljs-attr">roleRef:</span><br>  <span class="hljs-attr">apiGroup:</span> <span class="hljs-string">rbac.authorization.k8s.io</span><br>  <span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterRole</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">fluent-bit-read-role</span><br><span class="hljs-attr">subjects:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">kind:</span> <span class="hljs-string">ServiceAccount</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">fluent-bit-service-account</span><br>    <span class="hljs-attr">namespace:</span> <span class="hljs-string">logging</span><br><br><span class="hljs-meta">---</span><br><span class="hljs-comment"># Create a ConfigMap for fluent-bit</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">ConfigMap</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">fluent-bit-config</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">logging</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">fluent-bit</span><br>    <span class="hljs-attr">k8s-app:</span> <span class="hljs-string">fluent-bit-config-map</span><br><span class="hljs-attr">data:</span><br>  <span class="hljs-attr">fluent-bit.conf:</span> <span class="hljs-string">|</span><br><span class="hljs-string">    [SERVICE]</span><br><span class="hljs-string">        Parsers_File      /fluent-bit/etc/parsers.conf</span><br><span class="hljs-string">    [INPUT]</span><br><span class="hljs-string">        Name              tail</span><br><span class="hljs-string">        Tag               docker_logs</span><br><span class="hljs-string">        Path              /var/log/containers/*.log</span><br><span class="hljs-string">        DB                /fluent-bit-db/flb.db</span><br><span class="hljs-string">        Mem_Buf_Limit     5MB</span><br><span class="hljs-string">        Skip_Long_Lines   Off</span><br><span class="hljs-string">        Refresh_Interval  10</span><br><span class="hljs-string">    # =======================</span><br><span class="hljs-string">    # Output to Elasticsearch</span><br><span class="hljs-string">    # =======================</span><br><span class="hljs-string">    [OUTPUT]</span><br><span class="hljs-string">        Name              es</span><br><span class="hljs-string">        Match             loggly_logs</span><br><span class="hljs-string">        # ------------------------------------------</span><br><span class="hljs-string">        # Elastic cluster in K8s or Azure VM Cluster</span><br><span class="hljs-string">        # ------------------------------------------</span><br><span class="hljs-string">        Host              xxx.xxx.xxx.xxx</span><br><span class="hljs-string">        Port              9200</span><br><span class="hljs-string">        Type              _doc</span><br><span class="hljs-string">        Generate_ID       On</span><br><span class="hljs-string">        Logstash_Format     On</span><br><span class="hljs-string">        Logstash_Prefix     flb_logs</span><br><span class="hljs-string">        Logstash_DateFormat %Y.%m.%d</span><br><span class="hljs-string">    # -----------------------------------</span><br><span class="hljs-string">    # Step 1 -&gt; Docker Logs Format Parser</span><br><span class="hljs-string">    # -----------------------------------</span><br><span class="hljs-string">    [FILTER]</span><br><span class="hljs-string">        Name              parser</span><br><span class="hljs-string">        Match             docker_logs</span><br><span class="hljs-string">        Parser            cri</span><br><span class="hljs-string">        Key_Name          log</span><br><span class="hljs-string">        Reserve_Data      On</span><br><span class="hljs-string">    # ---------------------------------</span><br><span class="hljs-string">    # Step 2 -&gt; Match Target Log Stream</span><br><span class="hljs-string">    # ---------------------------------</span><br><span class="hljs-string">    [FILTER]</span><br><span class="hljs-string">        Name  grep</span><br><span class="hljs-string">        Match docker_logs</span><br><span class="hljs-string">        Regex log (loggly|audit)</span><br><span class="hljs-string">    # ------------------------------------------</span><br><span class="hljs-string">    # Step 3 -&gt; Remove Unused Docker Record Keys</span><br><span class="hljs-string">    # ------------------------------------------</span><br><span class="hljs-string">    [FILTER]</span><br><span class="hljs-string">        Name              record_modifier</span><br><span class="hljs-string">        Match             docker_logs</span><br><span class="hljs-string">        Remove_key        stream</span><br><span class="hljs-string">        Remove_key        time</span><br><span class="hljs-string">        Remove_key        logtag</span><br><span class="hljs-string">    # ---------------------------------------</span><br><span class="hljs-string">    # Step 4 -&gt; Parse (Loggly | Audit) Format</span><br><span class="hljs-string">    # ---------------------------------------</span><br><span class="hljs-string">    [FILTER]</span><br><span class="hljs-string">        Name         parser</span><br><span class="hljs-string">        Match        docker_logs</span><br><span class="hljs-string">        Parser       loggly_parser</span><br><span class="hljs-string">        Parser       audit_parser</span><br><span class="hljs-string">        Key_Name     log</span><br><span class="hljs-string">        Reserve_Data Off</span><br><span class="hljs-string">    # ---------------------------------</span><br><span class="hljs-string">    # Step 5 -&gt; Parts Log Stream by Tag</span><br><span class="hljs-string">    # ---------------------------------</span><br><span class="hljs-string">    [FILTER]</span><br><span class="hljs-string">        Name          rewrite_tag</span><br><span class="hljs-string">        Match         docker_logs</span><br><span class="hljs-string">        Rule          $name loggly loggly_logs false</span><br><span class="hljs-string">        Rule          $name audit  audit_logs  false</span><br><span class="hljs-string">    # ----------------------------------------</span><br><span class="hljs-string">    # Step 6 -&gt; Parse Audit Message Log Format</span><br><span class="hljs-string">    # ----------------------------------------</span><br><span class="hljs-string">    [FILTER]</span><br><span class="hljs-string">        Name         parser</span><br><span class="hljs-string">        Match        audit_logs</span><br><span class="hljs-string">        Parser       audit_message_parser</span><br><span class="hljs-string">        Key_Name     message</span><br><span class="hljs-string">        Reserve_Data Off</span><br><span class="hljs-string"></span>  <span class="hljs-attr">parsers.conf:</span> <span class="hljs-string">|</span><br><span class="hljs-string">    [PARSER]</span><br><span class="hljs-string">        Name cri</span><br><span class="hljs-string">        Format regex</span><br><span class="hljs-string">        Regex ^xxxxxxxxxxxxxxxx*)$</span><br><span class="hljs-string">        Time_Key    time</span><br><span class="hljs-string">        Time_Format %Y-%m-%dT%H:%M:%S.%L%z</span><br><span class="hljs-string">    [PARSER]</span><br><span class="hljs-string">        Name        docker_parser</span><br><span class="hljs-string">        Format      json</span><br><span class="hljs-string">        Time_Key    time</span><br><span class="hljs-string">        Time_Format %Y-%m-%dT%H:%M:%S.%L</span><br><span class="hljs-string">        Time_Keep   On</span><br><span class="hljs-string">    [PARSER]</span><br><span class="hljs-string">        Name        loggly_parser</span><br><span class="hljs-string">        Format      regex</span><br><span class="hljs-string">        Regex       ^xxxxxxxxx*)</span><br><span class="hljs-string">        Time_Key    logtime</span><br><span class="hljs-string">        Time_Format %Y-%m-%d %H:%M:%S.%L</span><br><span class="hljs-string">        Time_Keep   On</span><br><span class="hljs-string">        </span><br><span class="hljs-string"></span><span class="hljs-meta">---</span><br><span class="hljs-comment"># Create fluent-bit DeamonSet</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">DaemonSet</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">fluent-bit-deamonset</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">logging</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">fluent-bit</span><br>    <span class="hljs-attr">k8s-app:</span> <span class="hljs-string">fluent-bit-logging</span><br>    <span class="hljs-attr">version:</span> <span class="hljs-string">v1</span><br>    <span class="hljs-attr">kubernetes.io/cluster-service:</span> <span class="hljs-string">&quot;true&quot;</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">matchLabels:</span><br>      <span class="hljs-attr">name:</span> <span class="hljs-string">fluent-bit-logging</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-string">fluent-bit-logging</span><br>        <span class="hljs-attr">k8s-app:</span> <span class="hljs-string">fluent-bit-logging</span><br>        <span class="hljs-attr">version:</span> <span class="hljs-string">v1</span><br>        <span class="hljs-attr">kubernetes.io/cluster-service:</span> <span class="hljs-string">&quot;true&quot;</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">fluent-bit</span><br>          <span class="hljs-attr">image:</span> <span class="hljs-string">fluent/fluent-bit:latest</span><br>          <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">Always</span><br>          <span class="hljs-comment"># -----------------------------</span><br>          <span class="hljs-comment"># Do not need Fluent Bit server</span><br>          <span class="hljs-comment"># -----------------------------</span><br>          <span class="hljs-comment">#ports:</span><br>          <span class="hljs-comment">#  - containerPort: 2020</span><br>          <span class="hljs-attr">env:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">ACCESS_ID</span><br>              <span class="hljs-attr">value:</span> <span class="hljs-string">xxxxxx</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">ACCESS_KEY</span><br>              <span class="hljs-attr">value:</span> <span class="hljs-string">xxxxxx</span><br>          <span class="hljs-attr">volumeMounts:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">varlog</span><br>              <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/var/log</span><br>              <span class="hljs-attr">readOnly:</span> <span class="hljs-literal">true</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">fluent-bit-persistent-db</span><br>              <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/fluent-bit-db</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">fluent-bit-config</span><br>              <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/fluent-bit/etc/</span><br>      <span class="hljs-attr">terminationGracePeriodSeconds:</span> <span class="hljs-number">10</span><br>      <span class="hljs-attr">volumes:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">varlog</span><br>          <span class="hljs-attr">hostPath:</span><br>            <span class="hljs-attr">path:</span> <span class="hljs-string">/var/log</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">fluent-bit-persistent-db</span><br>          <span class="hljs-attr">hostPath:</span><br>            <span class="hljs-attr">path:</span> <span class="hljs-string">/var/tmp</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">fluent-bit-config</span><br>          <span class="hljs-attr">configMap:</span><br>            <span class="hljs-attr">name:</span> <span class="hljs-string">fluent-bit-config</span><br>      <span class="hljs-attr">serviceAccountName:</span> <span class="hljs-string">fluent-bit-service-account</span><br>      <span class="hljs-attr">tolerations:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">node-role.kubernetes.io/master</span><br>          <span class="hljs-attr">operator:</span> <span class="hljs-string">Exists</span><br>          <span class="hljs-attr">effect:</span> <span class="hljs-string">NoSchedule</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">operator:</span> <span class="hljs-string">&quot;Exists&quot;</span><br>          <span class="hljs-attr">effect:</span> <span class="hljs-string">&quot;NoExecute&quot;</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">operator:</span> <span class="hljs-string">&quot;Exists&quot;</span><br>          <span class="hljs-attr">effect:</span> <span class="hljs-string">&quot;NoSchedule&quot;</span><br><span class="hljs-comment"># EOF</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="最终展示"><a href="#最终展示" class="headerlink" title="最终展示"></a>最终展示</h3><p>最终我们可以登录 kibana 查看日志信息，Kibana 界面示意如下所示</p>
+<p><img src="/../img/kinana_shouye.png" srcset="/img/loading.gif" lazyload alt="kibana 首页"></p>
+<p><img src="/../img/kibana_discover.png" srcset="/img/loading.gif" lazyload alt="kibana 发现页"></p>
+<p><img src="/../img/kibana_log_info.png" srcset="/img/loading.gif" lazyload alt="kibana 日志检索页"></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/home/">kubernetes document</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://opentelemetry.io/docs/what-is-opentelemetry/">OpenTelemetry document</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/index.html">Elastic document</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/kibana/master/index.html">kibana document</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.fluentbit.io/manual/about/what-is-fluent-bit">Fluent-Bit document</a></p>
+</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/">工程实践</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F/">日志系统</a>
+                    
+                      <a class="hover-with-bg" href="/tags/ELK/">ELK</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/11/01/2023-10/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【月报】2023-10-硅谷之火</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/10/01/2023-09/">
+                        <span class="hidden-mobile">【月报】2023-09-音乐沙龙</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"b21c0f0d965ed167112d","clientSecret":"fd6a23ec9cf9e194ded7670e0bad810215a60fa8","repo":"gitalk","owner":"moranthuang","admin":"moranthuang","language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: '42b48d4d5a1a5ec06d4b32a1862bd1f0'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
